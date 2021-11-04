@@ -1,12 +1,16 @@
 <script>
-  export let pokeId;
   import { Chasing } from "svelte-loading-spinners";
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+
+  export let pokeId;
+  export let tryAgain;
 
   let loading = true;
   let backImage;
   let frontImage;
   let name;
-  let answer;
+  let answer = '';
   let answered = false;
   $: {
     loading = true;
@@ -25,7 +29,6 @@
         loading = false
       );
   }
-
   const checkAnswer = () => {
     answered = true;
   };
@@ -45,5 +48,6 @@
     {:else}
     <p>Nope, the correct answer is <b>{name}</b></p>
     {/if}
+    <button on:click={tryAgain}>Try Again</button>
   {/if}
 {/if}

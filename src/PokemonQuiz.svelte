@@ -8,7 +8,7 @@
 
   const handleQuizStart = () => {
     const pokeId = Math.floor(Math.random() * totalPokemon + 1);
-    open(PokemonAnswer, {pokeId});
+    open(PokemonAnswer, {pokeId, tryAgain: handleQuizStart});
   };
 </script>
 
