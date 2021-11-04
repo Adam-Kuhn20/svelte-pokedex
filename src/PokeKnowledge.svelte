@@ -2,18 +2,15 @@
   import {tries, correctAnswers} from "./store";
   let knowledge = "N/A";
   let percentile = "N/A";
-  let quizAttempts;
   let correcResponses;
-  tries.subscribe(value => {
-    quizAttempts = value;
-  });
+
   correctAnswers.subscribe(value => {
     correcResponses = value;
   });
 
   $: {
-    if (quizAttempts > 0) {
-      percentile = Math.round(correcResponses / quizAttempts * 100);
+    if ($tries > 0) {
+      percentile = Math.round(correcResponses / $tries * 100);
       if (percentile < 25) {
         knowledge = "poor";
       } else if (percentile < 50) {
