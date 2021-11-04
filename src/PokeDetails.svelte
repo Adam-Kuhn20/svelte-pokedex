@@ -6,7 +6,7 @@
   let pokemonImage;
   let loading = true;
   let stats = [];
-  let pokeId
+  let pokeId;
   $: {
     loading = true;    
     const reversedUrl = url.split("").reverse();

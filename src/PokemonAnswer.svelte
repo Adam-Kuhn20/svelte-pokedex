@@ -1,7 +1,6 @@
 <script>
   import { Chasing } from "svelte-loading-spinners";
-  import { createEventDispatcher } from "svelte";
-  const dispatch = createEventDispatcher();
+  import {tries, correctAnswers} from "./store";
 
   export let pokeId;
   export let tryAgain;
@@ -10,7 +9,7 @@
   let backImage;
   let frontImage;
   let name;
-  let answer = '';
+  let answer = "";
   let answered = false;
   $: {
     loading = true;
@@ -31,6 +30,10 @@
   }
   const checkAnswer = () => {
     answered = true;
+    tries.update(n => n + 1);
+    if (name === answer.toLocaleLowerCase()) {
+      correctAnswers.update(n => n + 1);
+    }
   };
 </script>
 
