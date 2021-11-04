@@ -41,9 +41,9 @@
   <button on:click={checkAnswer}>check</button>
   {#if answered}
     {#if name === answer.toLowerCase()}
-    <p>Correct !</p>
+    <p>Correct!</p>
     {:else}
-    <p>Nope, the correct answer is {name}</p>
+    <p>Nope, the correct answer is <b>{name}</b></p>
     {/if}
   {/if}
 {/if}
