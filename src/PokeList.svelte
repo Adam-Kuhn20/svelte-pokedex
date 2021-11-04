@@ -21,13 +21,14 @@
     $: {
       pages = calculatePages(lastPage)
     }
-    
+
     function handleChange(event) {
       const {value} = event.target;
       if (isNaN(value)) {
         error = true;
         return;
       }
+      page = 1
       pokemonPerPage = value;
       error = false;
     }
