@@ -32,7 +32,7 @@
     answered = true;
     tries.update(n => n + 1);
     if (name === answer.toLocaleLowerCase()) {
-      $correctAnswers++
+      $correctAnswers++;
     }
   };
 </script>
