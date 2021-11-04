@@ -28,17 +28,38 @@
     }
 </script>
 
+<style>
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .row-content {
+    display: flex;
+    justify-content: space-evenly;
+    min-width: 500px;
+  }
+
+</style>
+
 <h1>Pokemon</h1>
 <ul>
 	{#each pokemonList as pokemon}
 	<li>{pokemon.name}</li>
 	{/each}
 </ul>
-<label for='poke-per-page'># per page: {pokemonPerPage}</label>
-<input id='poke-per-page' value={pokemonPerPage} on:change={handleChange} type='text' />
-{#if error}
-  <p>Please input a number</p>
-{/if}
-<button on:click={() => page--} disabled={page === 1}>Prev</button>
-  <p>Current Page: {page}</p>
-<button on:click={() => page++} disabled={page === lastPage}>Next page</button>
+<div class='footer'>
+  <div class='row-content'>
+    <label for='poke-per-page'># per page: {pokemonPerPage}</label>
+    <input id='poke-per-page' value={pokemonPerPage} on:change={handleChange} type='text' />
+    {#if error}
+    <p>Please input a number</p>
+    {/if}
+  </div>
+  <div class='row-content'>  
+    <button on:click={() => page--} disabled={page === 1}>Prev</button>
+    <p>Current Page: {page}</p>
+    <button on:click={() => page++} disabled={page === lastPage}>Next page</button>
+  </div>
+</div>
