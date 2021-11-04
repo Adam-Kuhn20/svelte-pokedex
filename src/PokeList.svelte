@@ -2,7 +2,9 @@
   import { getContext } from "svelte";
   import { Jellyfish } from "svelte-loading-spinners";
   import PokeDetails from "./PokeDetails.svelte";
+  import { createEventDispatcher } from "svelte";
   const { open } = getContext("simple-modal");
+  const dispatch = createEventDispatcher();
 
   let page = 1;
   let pokemonList = [];
@@ -20,7 +22,8 @@
         .then(response => (response.json()))
         .then(data => {
           lastPage = Math.ceil(data.count / limit);
-          pokemonList = data.results; 
+          pokemonList = data.results;
+          dispatch("total-pokemon", {count: data.count});
         })
         .catch((err) => {
           console.error("Something went wrong", err);  
