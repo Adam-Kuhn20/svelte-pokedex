@@ -17,16 +17,8 @@
           console.error("Something went wrong", err);  
         });
     }
-
-    function handleNext() {
-      page++;
-    }
-    function handlePrevious() {
-      page--;
-    }
     function handleChange(event) {
       const {value} = event.target;
-      console.log(isNaN(value));
       if (isNaN(value)) {
         error = true;
         return;
@@ -45,8 +37,8 @@
 <label for='poke-per-page'># per page: {pokemonPerPage}</label>
 <input id='poke-per-page' value={pokemonPerPage} on:change={handleChange} type='text' />
 {#if error}
-    <p>Please input a number</p>
+  <p>Please input a number</p>
 {/if}
-<button on:click={handlePrevious} disabled={page === 1}>Prev</button>
-    <p>Current Page: {page}</p>
-<button on:click={handleNext} disabled={page === lastPage}>Next page</button>
+<button on:click={() => page--} disabled={page === 1}>Prev</button>
+  <p>Current Page: {page}</p>
+<button on:click={() => page++} disabled={page === lastPage}>Next page</button>
