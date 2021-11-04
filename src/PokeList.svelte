@@ -1,18 +1,22 @@
 <script>
-  import {Jellyfish} from 'svelte-loading-spinners'
-    let page = 1;
-    let pokemonList = [];
-    let pages = []
-    let lastPage;
-    let pokemonPerPage = 20;
-    let error = false;
-    let loading = true;
-    $: {
-      const limit = pokemonPerPage;
-      const offSet = limit * (page - 1);
-      loading = true;
-      setTimeout(() => {
-        fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offSet}`, {method: "GET"})
+  import { getContext } from "svelte";
+  import { Jellyfish } from "svelte-loading-spinners";
+  import PokeDetails from "./PokeDetails.svelte";
+  const { open } = getContext("simple-modal");
+
+  let page = 1;
+  let pokemonList = [];
+  let pages = [];
+  let lastPage;
+  let pokemonPerPage = 20;
+  let error = false;
+  let loading = true;
+  $: {
+    const limit = pokemonPerPage;
+    const offSet = limit * (page - 1);
+    loading = true;
+    setTimeout(() => {
+      fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offSet}`, {method: "GET"})
         .then(response => (response.json()))
         .then(data => {
           lastPage = Math.ceil(data.count / limit);
@@ -22,29 +26,29 @@
           console.error("Something went wrong", err);  
         })
         .finally(() => {
-          loading = false
+          loading = false;
         });
-      }, 3000)
-    }
-    $: {
-      pages = calculatePages(lastPage)
-    }
+    }, 3000);
+  }
+  $: {
+    pages = calculatePages(lastPage);
+  }
 
-    function handleChange(event) {
-      const {value} = event.target;
-      if (isNaN(value)) {
-        error = true;
-        return;
-      }
-      page = 1
-      pokemonPerPage = value;
-      error = false;
+  function handleChange(event) {
+    const {value} = event.target;
+    if (isNaN(value)) {
+      error = true;
+      return;
     }
+    page = 1;
+    pokemonPerPage = value;
+    error = false;
+  }
 
-    function calculatePages(lastPage) {
-      if (lastPage === undefined) return []
-      return [...Array(lastPage).keys()].map(i => i + 1)
-    }
+  function calculatePages(lastPage) {
+    if (lastPage === undefined) return [];
+    return [...Array(lastPage).keys()].map(i => i + 1);
+  }
 </script>
 
 <style>
@@ -68,7 +72,7 @@
   {:else}
   <ul>
     {#each pokemonList as pokemon}
-    <li>{pokemon.name}</li>
+    <li on:click={open(PokeDetails, { name: pokemon.name, url: pokemon.url })}>{pokemon.name}</li>
     {/each}
   </ul>
   <div class='footer'>

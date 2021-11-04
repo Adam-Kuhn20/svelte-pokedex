@@ -1,10 +1,13 @@
 <script>
+  import Modal from 'svelte-simple-modal';
 	import PokemonList from "./PokeList.svelte";
+
+
+
 	let name = "world";
 	if (name === "world") {
 	  name = "Adam";
 	}
-	let pokemonList = [];
 	const fetchPokemon = async () => {
 	  const response = await fetch("https://pokeapi.co/api/v2/pokemon/squirtle/", {method: "GET"});
 	  // const response = await fetch('https://pokeapi.co/api/v2/pokemon/', {method: 'GET'})
@@ -23,6 +26,9 @@
 
 <h1>Hello {name}!</h1>
 <button on:click={buttonClicked}>Get All Pokemon</button>
-<PokemonList />
+
+<Modal>
+	<PokemonList/>
+</Modal>
 
 
